@@ -6,9 +6,11 @@ public class InstantiateBullet : MonoBehaviour {
     public double timer;
     public GameObject bulletPrefab;
     private PlayerStats ps;
+	private Animator anim;
 
 	// Use this for initialization
 	void Start () {
+		anim = this.gameObject.GetComponent<Animator> ();
         ps = this.gameObject.GetComponent<PlayerStats>();
         timer = 0.2;
 	}
@@ -16,7 +18,7 @@ public class InstantiateBullet : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (ps.health > 0) {
+		if (ps.health > 0 && anim.GetInteger("state") != 2) {
 			if (timer <= 0) {
 				if (ps.getWeaponLevel () == 1) {
 					Instantiate (bulletPrefab, (this.transform.position), Quaternion.identity);

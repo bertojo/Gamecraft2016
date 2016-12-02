@@ -7,6 +7,7 @@ public class BossOneStats : MonoBehaviour {
 	public int health;
 	private ShieldStats ss;
 	private Animator anim;
+	public GameObject player;
 	//private GameObject boss;
 
 	// Use this for initialization
@@ -44,5 +45,9 @@ public class BossOneStats : MonoBehaviour {
 		Destroy (this.transform.GetChild(0).gameObject);
 		Destroy (this.transform.GetChild(1).gameObject);
 		Destroy (this.transform.GetChild(2).gameObject);
+	}
+
+	public void win() {
+		player.GetComponent<Animator> ().SetInteger ("state", 2);
 	}
 }
