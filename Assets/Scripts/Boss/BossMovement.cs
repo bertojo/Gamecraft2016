@@ -26,10 +26,10 @@ public class BossMovement : MonoBehaviour {
 		}
 
 		if (goingLeft) {
-			Vector3 newPos = new Vector3 (boss.transform.position.x - speed, boss.transform.position.y, boss.transform.position.z);
+			Vector3 newPos = new Vector3 (boss.transform.position.x - speed * Time.deltaTime, boss.transform.position.y, boss.transform.position.z);
 			boss.transform.position = newPos;
 		} else {
-			Vector3 newPos = new Vector3 (boss.transform.position.x + speed, boss.transform.position.y, boss.transform.position.z);
+			Vector3 newPos = new Vector3 (boss.transform.position.x + speed * Time.deltaTime, boss.transform.position.y, boss.transform.position.z);
 			boss.transform.position = newPos;
 		}
 	}
