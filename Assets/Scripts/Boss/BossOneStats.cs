@@ -6,18 +6,21 @@ public class BossOneStats : MonoBehaviour {
 
 	public int health;
 	private ShieldStats ss;
+	private Animator anim;
 	//private GameObject boss;
 
 	// Use this for initialization
 	void Start () {
 		//boss = this.gameObject;
+		anim = this.GetComponent<Animator>();
 		health = 100;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (health <= 0) {
-			Destroy (this.gameObject);
+			anim.SetInteger ("state", 1);
+			//Destroy (this.gameObject);
 		}
 	}
 
@@ -31,5 +34,15 @@ public class BossOneStats : MonoBehaviour {
 			this.health--;
 			Destroy (col.gameObject);
 		}
+	}
+
+	public void destroyThis() {
+		Destroy (this.gameObject);
+	}
+
+	public void disarm() {
+		Destroy (this.transform.GetChild(0).gameObject);
+		Destroy (this.transform.GetChild(1).gameObject);
+		Destroy (this.transform.GetChild(2).gameObject);
 	}
 }

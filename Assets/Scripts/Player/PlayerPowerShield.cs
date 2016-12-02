@@ -34,29 +34,31 @@ public class PlayerPowerShield : MonoBehaviour {
 	}
 
 	void Update () {
-		if (Input.GetKey (KeyCode.K) && ps.getEnergy() >= 66 && shieldTimer <= 0.0f) {
-			//shield.SetActive (true);
-			sr.enabled = true;
-			coll.enabled = true;
-			shieldTimer = 4.0f;
-			ps.decreaseEnergy (66);
-		}
-
-		if (shieldTimer > 0.0f) {
-			shieldTimer -= Time.deltaTime;
-		} else {
-			if (shield.activeSelf) {
-				//shield.SetActive (false);
-				sr.enabled = false;
-				coll.enabled = false;
-				if (damageAbsorbed > 0) {
-					shieldReflect = Instantiate (shieldReflectPrefab, player.transform.position, Quaternion.identity) as GameObject;
-					shieldReflect.gameObject.GetComponent<ShieldStats>().setDamage(damageAbsorbed);
-				}
-				damageAbsorbed = 0;
+		if (ps.health > 0) {
+			if (Input.GetKey (KeyCode.K) && ps.getEnergy() >= 66 && shieldTimer <= 0.0f) {
+				//shield.SetActive (true);
+				sr.enabled = true;
+				coll.enabled = true;
+				shieldTimer = 4.0f;
+				ps.decreaseEnergy (66);
 			}
+
+			if (shieldTimer > 0.0f) {
+				shieldTimer -= Time.deltaTime;
+			} else {
+				if (shield.activeSelf) {
+					//shield.SetActive (false);
+					sr.enabled = false;
+					coll.enabled = false;
+					if (damageAbsorbed > 0) {
+						shieldReflect = Instantiate (shieldReflectPrefab, player.transform.position, Quaternion.identity) as GameObject;
+						shieldReflect.gameObject.GetComponent<ShieldStats>().setDamage(damageAbsorbed);
+					}
+					damageAbsorbed = 0;
+				}
+			}
+			shield.transform.position = player.transform.position;
 		}
-		shield.transform.position = player.transform.position;
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {

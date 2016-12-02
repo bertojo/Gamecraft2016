@@ -16,10 +16,12 @@ public class PlayerPowerUpgrade : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKey(KeyCode.L) && ps.getEnergy() >= 100)
-        {
-            ps.decreaseEnergy(100);
-            ps.increaseWeapon();
-        }
+		if (ps.health > 0) {
+			if(Input.GetKey(KeyCode.L) && ps.getEnergy() >= 100)
+	        {
+	            ps.decreaseEnergy(100);
+	            ps.increaseWeapon();
+	        }
+		}
 	}
 }
