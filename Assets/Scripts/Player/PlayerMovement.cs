@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
+	public float xMin, xMax, yMin, yMax;
+
     int speed = 0;
 	// Update is called once per frame
 	void Update () {
+
 
         if(Input.GetKey(KeyCode.LeftShift))
         {
@@ -33,5 +36,9 @@ public class PlayerMovement : MonoBehaviour {
             transform.Translate(new Vector3(speed, 0, 0) * Time.deltaTime);
         }
 
+
+		transform.position = new Vector3 (Mathf.Clamp (this.transform.position.x, xMin, xMax),
+			Mathf.Clamp (this.transform.position.y, yMin, yMax), transform.position.z);
+		
     }
 }
