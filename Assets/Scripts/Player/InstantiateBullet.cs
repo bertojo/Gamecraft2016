@@ -8,7 +8,7 @@ public class InstantiateBullet : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        timer = 0.1;
+        timer = 0.2;
 	}
 	
 	// Update is called once per frame
@@ -16,7 +16,7 @@ public class InstantiateBullet : MonoBehaviour {
 		if(timer <= 0)
         {
  	       Instantiate(bulletPrefab, (this.transform.position), Quaternion.identity);            
-            timer = 0.1;
+            timer = 0.2;
         }
         timer -= Time.deltaTime;
 	}
