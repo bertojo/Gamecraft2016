@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerPowerShield : MonoBehaviour {
 
-	public GameObject player;
+	private GameObject player;
 	private GameObject shield;
-	public GameObject shieldPrefab;
+	//public GameObject shieldPrefab;
 	public GameObject shieldReflectPrefab;
 	private GameObject shieldReflect;
 	private PlayerStats ps;
@@ -14,25 +14,41 @@ public class PlayerPowerShield : MonoBehaviour {
 	private float shieldTimer;
 	private int damageAbsorbed;
 
+	private CircleCollider2D coll;
+	private SpriteRenderer sr;
+
 	void Start () {
+		player = this.transform.parent.gameObject;
 		damageAbsorbed = 0;
 		shieldTimer = 0.0f;
 		ps = player.GetComponent<PlayerStats> ();
-		shield = Instantiate (shieldPrefab, player.transform.position, Quaternion.identity) as GameObject;
-		shield.SetActive (false);
+		//shield = Instantiate (shieldPrefab, player.transform.position, Quaternion.identity) as GameObject;
+		shield = this.gameObject;
+		sr = this.GetComponent<SpriteRenderer> ();
+		coll = this.GetComponent<CircleCollider2D> ();
+
+		sr.enabled = false;
+		coll.enabled = false;
+
+		//shield.SetActive (false);
 	}
 
 	void Update () {
-		if (Input.GetKey (KeyCode.K) && ps.getEnergy() >= 50 && shieldTimer <= 0.0f) {
-			shield.SetActive (true);
+		if (Input.GetKey (KeyCode.K) && ps.getEnergy() >= 66 && shieldTimer <= 0.0f) {
+			//shield.SetActive (true);
+			sr.enabled = true;
+			coll.enabled = true;
 			shieldTimer = 4.0f;
+			ps.decreaseEnergy (66);
 		}
 
 		if (shieldTimer > 0.0f) {
 			shieldTimer -= Time.deltaTime;
 		} else {
 			if (shield.activeSelf) {
-				shield.SetActive (false);
+				//shield.SetActive (false);
+				sr.enabled = false;
+				coll.enabled = false;
 				if (damageAbsorbed > 0) {
 					shieldReflect = Instantiate (shieldReflectPrefab, player.transform.position, Quaternion.identity) as GameObject;
 					shieldReflect.gameObject.GetComponent<ShieldStats>().setDamage(damageAbsorbed);
@@ -40,10 +56,12 @@ public class PlayerPowerShield : MonoBehaviour {
 				damageAbsorbed = 0;
 			}
 		}
+		shield.transform.position = player.transform.position;
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
-		if (shield.activeSelf) {
+
+		if (shield.activeInHierarchy) {
 			if (col.gameObject.tag == "enemy_bullet") {
 				damageAbsorbed += col.gameObject.GetComponent<EnemyBullet> ().damage;
 				Destroy (col.gameObject);

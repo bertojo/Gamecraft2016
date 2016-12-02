@@ -7,7 +7,7 @@ public class ShieldStats : MonoBehaviour {
 	private int damage;
 
 	void Start () {
-		damage = 0;
+		//damage = 0;
 	}
 
 	public void setDamage(int value) {

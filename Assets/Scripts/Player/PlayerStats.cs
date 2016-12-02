@@ -25,7 +25,10 @@ public class PlayerStats : MonoBehaviour {
     }
 
 	public void increaseEnergy(int value) {
-		energy += value;
+		if (energy < 100) {
+			energy += value;
+			energy = Mathf.Min (100, energy);
+		}
 	}
 
 	public void decreaseEnergy(int value) {
@@ -52,7 +55,4 @@ public class PlayerStats : MonoBehaviour {
     {
         return this.weaponUpgradeLevel;
     }
-	void Update() {
-		Debug.Log ("Player Health: " + health);
-	}
 }
