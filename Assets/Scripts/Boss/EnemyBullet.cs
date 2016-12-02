@@ -24,6 +24,15 @@ public class EnemyBullet : MonoBehaviour {
 		rb2d.MovePosition (this.transform.position + speed * direction * Time.deltaTime);
 
 		despawnTimer -= Time.deltaTime;
+
+		if (Input.GetKey (KeyCode.R))
+			speed = -speed;
+		if (Input.GetKey (KeyCode.E)) {
+			if (this.transform.position.x < -4.8f)
+				direction = new Vector3 (1, 0);
+			else
+				direction = new Vector3 (-1, 0);
+		}
 	}
 
 	public void setDir(Vector3 dir) {
