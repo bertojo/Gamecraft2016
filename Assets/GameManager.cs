@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour {
 
 	private bool isPaused = false;
 
+
 	// Use this for initialization
 	void Start () {
 		
