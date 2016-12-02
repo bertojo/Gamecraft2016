@@ -18,7 +18,7 @@ public class PlayerPowerShield : MonoBehaviour {
 		damageAbsorbed = 0;
 		shieldTimer = 0.0f;
 		ps = player.GetComponent<PlayerStats> ();
-		shield = Instantiate (shieldPrefab, player.transform.position, Quaternion.identity);
+		shield = Instantiate (shieldPrefab, player.transform.position, Quaternion.identity) as GameObject;
 		shield.SetActive (false);
 	}
 
@@ -34,7 +34,7 @@ public class PlayerPowerShield : MonoBehaviour {
 			if (shield.activeSelf) {
 				shield.SetActive (false);
 				if (damageAbsorbed > 0) {
-					shieldReflect = Instantiate (shieldReflectPrefab, player.transform.position, Quaternion.identity);
+					shieldReflect = Instantiate (shieldReflectPrefab, player.transform.position, Quaternion.identity) as GameObject;
 					shieldReflect.gameObject.GetComponent<ShieldStats>().setDamage(damageAbsorbed);
 				}
 				damageAbsorbed = 0;

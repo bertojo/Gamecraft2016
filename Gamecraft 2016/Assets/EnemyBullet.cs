@@ -7,7 +7,7 @@ public class EnemyBullet : MonoBehaviour {
 	public float speed = 1.0f;
 	private Rigidbody2D rb2d;
 	private Vector3 direction;
-	private int damage = 1;
+	public int damage = 1;
 
 	// Use this for initialization
 	void Start () {
