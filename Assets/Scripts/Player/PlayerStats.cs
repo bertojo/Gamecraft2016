@@ -8,9 +8,11 @@ public class PlayerStats : MonoBehaviour {
 	public int energy;
     public int weaponUpgradeLevel;
 	private GameObject player;
+	private Animator anim;
 
 	void Start () {
 		player = this.gameObject;
+		anim = player.GetComponent<Animator> ();
 		health = 3;
 		energy = 0;
         weaponUpgradeLevel = 1;
@@ -55,4 +57,10 @@ public class PlayerStats : MonoBehaviour {
     {
         return this.weaponUpgradeLevel;
     }
+
+	void Update() {
+		if (health <= 0) {
+			anim.SetInteger ("state", 1);
+		}
+	}
 }
