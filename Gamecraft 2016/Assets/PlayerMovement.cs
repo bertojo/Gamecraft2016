@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour {
     int speed = 0;
 	// Update is called once per frame
 	void Update () {
+
         if(Input.GetKey(KeyCode.LeftShift))
         {
             speed = 5;
