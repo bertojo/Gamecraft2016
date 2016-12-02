@@ -24,6 +24,5 @@ public class EnergyMeterScript : MonoBehaviour {
 
 		Vector3 scale = new Vector3(1, perc, 1);
 		meterFill.transform.localScale = scale;
-
 	}
 }
