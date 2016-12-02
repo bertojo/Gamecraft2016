@@ -13,4 +13,8 @@ public class ShieldStats : MonoBehaviour {
 	public void setDamage(int value) {
 		damage = value;
 	}
+
+	public int getDamage() {
+		return this.damage;
+	}
 }

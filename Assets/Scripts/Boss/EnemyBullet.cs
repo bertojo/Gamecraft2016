@@ -8,6 +8,7 @@ public class EnemyBullet : MonoBehaviour {
 	private Rigidbody2D rb2d;
 	private Vector3 direction;
 	public int damage = 1;
+	public bool isMarked = false;
 
 	// Use this for initialization
 	void Start () {

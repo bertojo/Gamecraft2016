@@ -7,9 +7,10 @@ public class PlayerStats : MonoBehaviour {
 	public int health;
 	public int energy;
     public int weaponUpgradeLevel;
-	public GameObject player;
+	private GameObject player;
 
 	void Start () {
+		player = this.gameObject;
 		health = 3;
 		energy = 0;
         weaponUpgradeLevel = 1;
@@ -51,4 +52,7 @@ public class PlayerStats : MonoBehaviour {
     {
         return this.weaponUpgradeLevel;
     }
+	void Update() {
+		Debug.Log ("Player Health: " + health);
+	}
 }

@@ -5,15 +5,16 @@ using UnityEngine;
 public class PlayerCloseCollide : MonoBehaviour {
 
 	private PlayerStats ps;
-	public GameObject player;
 
 	// Use this for initialization
 	void Start () {
-		ps = player.gameObject.GetComponent<PlayerStats> ();
+		ps = this.GetComponentInParent<PlayerStats> ();
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
-		if (col.gameObject.tag == "enemy_bullet")
+		if (col.gameObject.tag == "enemy_bullet" && col.gameObject.GetComponent<EnemyBullet> ().isMarked == false) {
 			ps.increaseEnergy (5);
+			col.gameObject.GetComponent<EnemyBullet> ().isMarked = true;
+		}
 	}
 }
