@@ -11,7 +11,12 @@ public class FiringPoint : MonoBehaviour {
 	private float t;
 	private float r = 1.0f;
 
-	public int pattern = 1;
+	private BossOneStats bos;
+	private float bosLife;
+
+	public int pattern = 0;
+
+	private float changePatternTimer = 3.0f; 
 
 	// Use this for initialization
 	void Start () {
@@ -19,10 +24,24 @@ public class FiringPoint : MonoBehaviour {
 		patternZeroCooldown = cooldown;
 		patternOneCooldown = 1.0f;
 		origCooldown = cooldown;
+		bos = this.GetComponentInParent<BossOneStats> ();
+		bosLife = bos.health;
 	}
 
 	// Update is called once per frame
 	void Update () {
+		if (bos.health * 1.0f < bosLife * 0.2f)
+			pattern = 6;
+		else {
+			if (changePatternTimer <= 0.0f) {
+				changePatternTimer = 10.0f;
+				pattern++;
+				if (pattern == 6)
+					pattern = 0;
+			} else {
+				changePatternTimer -= Time.deltaTime;
+			}
+		}
 
 		if (pattern == 0) {      // circular
 			if (t > Mathf.PI) {
@@ -45,7 +64,7 @@ public class FiringPoint : MonoBehaviour {
 				GameObject bullet2 = Instantiate (bulletPrefab, this.transform.position, Quaternion.identity) as GameObject;
 				GameObject bullet3 = Instantiate (bulletPrefab, this.transform.position, Quaternion.identity) as GameObject;
 			
-    			bullet1.gameObject.GetComponent<EnemyBullet> ().setDir (new Vector3 (Mathf.Cos (-Mathf.PI / 1.8f), Mathf.Sin (-Mathf.PI / 1.8f), 0));
+				bullet1.gameObject.GetComponent<EnemyBullet> ().setDir (new Vector3 (Mathf.Cos (-Mathf.PI / 1.8f), Mathf.Sin (-Mathf.PI / 1.8f), 0));
 				bullet2.gameObject.GetComponent<EnemyBullet> ().setDir (new Vector3 (Mathf.Cos (-Mathf.PI / 1.98f), Mathf.Sin (-Mathf.PI / 1.98f), 0));
 				bullet3.gameObject.GetComponent<EnemyBullet> ().setDir (new Vector3 (Mathf.Cos (-Mathf.PI / 2.2f), Mathf.Sin (-Mathf.PI / 2.2f), 0));
 				cooldown = patternOneCooldown;
@@ -65,7 +84,37 @@ public class FiringPoint : MonoBehaviour {
 			}
 			t += 0.1f;
 			cooldown -= Time.deltaTime;
-		} else if (pattern == 3) { // irregular pattern
+		} else if (pattern == 3) { //zig-zag
+
+			if (cooldown <= 0.0f) {
+				GameObject bullet = Instantiate (bulletPrefab, this.transform.position, Quaternion.identity) as GameObject;
+				bullet.gameObject.GetComponent<EnemyBullet> ().setDir (new Vector3 (0, -1, 0));
+				cooldown = origCooldown;
+			}
+			cooldown -= Time.deltaTime;
+		} else if (pattern == 4) { //quadratic pattern to right
+			if (t > Mathf.PI * 5.0f / 6)
+				t = Mathf.PI * 1.0f / 7;
+
+			if (cooldown <= 0.0f) {
+				GameObject bullet = Instantiate (bulletPrefab, this.transform.position, Quaternion.identity) as GameObject;
+				bullet.gameObject.GetComponent<EnemyBullet> ().setDir (new Vector3 (r * t, -r * t * t, 0));
+				cooldown = origCooldown;
+			}
+			t += 0.1f;
+			cooldown -= Time.deltaTime;
+		} else if (pattern == 5) {
+			if (t > Mathf.PI * 5.0f / 6)
+				t = Mathf.PI * 1.0f / 7;
+
+			if (cooldown <= 0.0f) {
+				GameObject bullet = Instantiate (bulletPrefab, this.transform.position, Quaternion.identity) as GameObject;
+				bullet.gameObject.GetComponent<EnemyBullet> ().setDir (new Vector3 (-r * t, -r * t * t, 0));
+				cooldown = origCooldown;
+			}
+			t += 0.1f;
+			cooldown -= Time.deltaTime;
+		} else if (pattern == 6) { // impossibru pattern
 			if (t > Mathf.PI * 5.0f / 6)
 				t = Mathf.PI * 1.0f / 7;
 
@@ -77,28 +126,6 @@ public class FiringPoint : MonoBehaviour {
 			}
 			t += 0.1f;
 			cooldown -= Time.deltaTime;
-		} /*else if (pattern == 4) {
-			if (t > Mathf.PI * 2)
-				t = 0;
-
-			if (cooldown <= 0.0f) {
-				GameObject bullet = Instantiate (bulletPrefab, this.transform.position, Quaternion.identity) as GameObject;
-				bullet.gameObject.GetComponent<EnemyBullet> ().setDir (new Vector3 (0.5f * r * Mathf.Cos (3*t), 0.3f * r * Mathf.Sin(2*t), 0));
-				cooldown = origCooldown;
-			}
-			t += 0.1f;
-			cooldown -= Time.deltaTime;
-		} else if (pattern == 5) {
-			if (t > Mathf.PI * 2)
-				t = 0;
-
-			if (cooldown <= 0.0f) {
-				GameObject bullet = Instantiate (bulletPrefab, this.transform.position, Quaternion.identity) as GameObject;
-				bullet.gameObject.GetComponent<EnemyBullet> ().setDir (new Vector3 (0.5f * r * Mathf.Cos (3*t), 0.3f * r * Mathf.Sin(2*t), 0));
-				cooldown = origCooldown;
-			}
-			t += 0.1f;
-			cooldown -= Time.deltaTime;
-		} */
+		} 
 	}
 }
