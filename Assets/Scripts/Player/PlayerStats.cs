@@ -5,13 +5,23 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour {
 
 	public int health;
-	private int energy;
+	public int energy;
+    public int weaponUpgradeLevel;
 	public GameObject player;
 
 	void Start () {
 		health = 3;
 		energy = 0;
+        weaponUpgradeLevel = 1;
 	}
+
+    public void increaseWeapon()
+    {
+        if(weaponUpgradeLevel < 5)
+        {
+            weaponUpgradeLevel++;
+        }
+    }
 
 	public void increaseEnergy(int value) {
 		energy += value;
@@ -36,4 +46,9 @@ public class PlayerStats : MonoBehaviour {
 	public int getEnergy() {
 		return this.energy;
 	}
+
+    public int getWeaponLevel()
+    {
+        return this.weaponUpgradeLevel;
+    }
 }
