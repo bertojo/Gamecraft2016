@@ -12,7 +12,7 @@ public class PlayerCollide : MonoBehaviour {
 		ps = this.gameObject.GetComponent<PlayerStats> ();
 	}
 
-	void OnCollisionEnter2D (Collision2D col) {
+	void OnTriggerEnter2D (Collider2D col) {
 		if (col.gameObject.tag == "enemy_bullet") {
 			ps.increaseEnergy (1);
 			ps.decreaseHealth (1);
