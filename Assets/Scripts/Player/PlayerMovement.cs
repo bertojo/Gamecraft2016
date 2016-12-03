@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		if (ps.health > 0) {
 			
-			if (Input.GetKey (KeyCode.LeftShift)) {
+			if (Input.GetKey (KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
 				speed = 2.5f;
 			} else {
 				speed = 5f;
