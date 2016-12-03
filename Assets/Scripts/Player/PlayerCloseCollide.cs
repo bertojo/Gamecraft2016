@@ -13,7 +13,7 @@ public class PlayerCloseCollide : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D col) {
 		if (col.gameObject.tag == "enemy_bullet" && col.gameObject.GetComponent<EnemyBullet> ().isMarked == false) {
-			ps.increaseEnergy (2);
+			ps.increaseEnergy (4);
 			col.gameObject.GetComponent<EnemyBullet> ().isMarked = true;
 		}
 	}
