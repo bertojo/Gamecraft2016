@@ -9,6 +9,7 @@ public class PlayerPowerHeal : MonoBehaviour {
 	private float origCooldown;
     private AudioSource AS;
     public AudioClip ac;
+	public GameObject animObject;
 
 	// Use this for initialization
 	void Start () {
@@ -27,6 +28,7 @@ public class PlayerPowerHeal : MonoBehaviour {
 				ps.increaseHealth (1);
 				ps.decreaseEnergy (25);
 				cooldown = origCooldown;
+				animObject.SetActive (true);
 			}
 		}
 		cooldown -= Time.deltaTime;
