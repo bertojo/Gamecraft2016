@@ -10,6 +10,8 @@ public class PlayerCollide : MonoBehaviour {
     public double invulTimer;
     private SpriteRenderer sr;
     private Color color;
+    private AudioSource AS;
+    public AudioClip ac;
 
 	void Start () {
 		//rb2d = this.gameObject.GetComponent<Rigidbody2D> ();
@@ -19,6 +21,7 @@ public class PlayerCollide : MonoBehaviour {
         notInvul = true;
         alphaIncDec = true;
         invulTimer = 0;
+        AS = GetComponent<AudioSource>();
 	}
 
     void Update ()
@@ -48,6 +51,8 @@ public class PlayerCollide : MonoBehaviour {
 			//ps.decreaseEnergy (4);
             if(notInvul)
             {
+                AS.clip = ac;
+                AS.Play();
                 notInvul = !notInvul;
                 ps.decreaseHealth(1);
                 invulTimer = 2;

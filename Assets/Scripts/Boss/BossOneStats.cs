@@ -12,11 +12,14 @@ public class BossOneStats : MonoBehaviour {
 
 	private bool specialPower;
 	private float specialPowerTimer;
+    private AudioSource AS;
+    public AudioClip ac;
 
 	void Start () {
 		maxHp = (float)health;
 		anim = this.GetComponent<Animator>();
 		specialPowerTimer = 10.0f;
+        AS = GetComponent<AudioSource>();
 	}
 
 	void Update () {
@@ -39,9 +42,12 @@ public class BossOneStats : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D col) {
 		if (col.gameObject.tag == "reflect_shield") {
+            
 			ss = col.gameObject.GetComponent<ShieldStats> ();
 			this.health -= ss.getDamage ();
 			Destroy (col.gameObject);
+            AS.clip = ac;
+            AS.Play();
 		}
 		if (col.gameObject.tag == ("player_bullet")) {
 			this.health--;
