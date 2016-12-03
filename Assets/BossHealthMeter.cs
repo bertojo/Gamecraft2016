@@ -20,8 +20,8 @@ public class BossHealthMeter : MonoBehaviour {
 	void Update () {
 		health = bs.health;
 		health = Mathf.Max (0, health);
-		perc = health / 100.0f;
-		Debug.Log ("PERC: " + perc);
+		perc = (float)health / (float)bs.getMaxHp();
+		//Debug.Log ("PERC: " + perc);
 		Vector3 scale = new Vector3(1, perc, 1);
 		meterFill.transform.localScale = scale;
 	}

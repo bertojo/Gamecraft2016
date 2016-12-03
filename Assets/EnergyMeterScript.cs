@@ -21,7 +21,7 @@ public class EnergyMeterScript : MonoBehaviour {
 	void Update () {
 		energy = ps.getEnergy ();
 		perc = energy / 100.0f;
-		Debug.Log ("PERC: " + perc);
+		//Debug.Log ("PERC: " + perc);
 		Vector3 scale = new Vector3(1, perc, 1);
 		meterFill.transform.localScale = scale;
 	}

@@ -5,6 +5,7 @@ using UnityEngine;
 public class BossOneStats : MonoBehaviour {
 
 	public int health;
+	private float maxHp;
 	private ShieldStats ss;
 	private Animator anim;
 	public GameObject player;
@@ -13,8 +14,8 @@ public class BossOneStats : MonoBehaviour {
 	private float specialPowerTimer;
 
 	void Start () {
+		maxHp = (float)health;
 		anim = this.GetComponent<Animator>();
-		health = 100;
 		specialPowerTimer = 10.0f;
 	}
 
@@ -30,6 +31,10 @@ public class BossOneStats : MonoBehaviour {
 			specialPower = false;
 			specialPowerTimer -= Time.deltaTime;
 		}
+	}
+
+	public float getMaxHp() {
+		return maxHp;
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
