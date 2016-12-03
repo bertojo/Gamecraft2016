@@ -84,7 +84,7 @@ public class FiringPoint : MonoBehaviour {
 			}
 			t += 0.1f;
 			cooldown -= Time.deltaTime;
-		} else if (pattern == 3) { //zig-zag
+		} else if (pattern == 3) { // zig-zag
 
 			if (cooldown <= 0.0f) {
 				GameObject bullet = Instantiate (bulletPrefab, this.transform.position, Quaternion.identity) as GameObject;
@@ -92,7 +92,7 @@ public class FiringPoint : MonoBehaviour {
 				cooldown = origCooldown;
 			}
 			cooldown -= Time.deltaTime;
-		} else if (pattern == 4) { //quadratic pattern to right
+		} else if (pattern == 4) { // quadratic pattern to right
 			if (t > Mathf.PI * 5.0f / 6)
 				t = Mathf.PI * 1.0f / 7;
 
@@ -103,7 +103,7 @@ public class FiringPoint : MonoBehaviour {
 			}
 			t += 0.1f;
 			cooldown -= Time.deltaTime;
-		} else if (pattern == 5) {
+		} else if (pattern == 5) { // quadratic pattern to left
 			if (t > Mathf.PI * 5.0f / 6)
 				t = Mathf.PI * 1.0f / 7;
 

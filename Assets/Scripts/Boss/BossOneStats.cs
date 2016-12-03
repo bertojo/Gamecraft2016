@@ -8,20 +8,27 @@ public class BossOneStats : MonoBehaviour {
 	private ShieldStats ss;
 	private Animator anim;
 	public GameObject player;
-	//private GameObject boss;
 
-	// Use this for initialization
+	private bool specialPower;
+	private float specialPowerTimer;
+
 	void Start () {
-		//boss = this.gameObject;
 		anim = this.GetComponent<Animator>();
 		health = 100;
+		specialPowerTimer = 10.0f;
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		if (health <= 0) {
 			anim.SetInteger ("state", 1);
-			//Destroy (this.gameObject);
+		}
+
+		if (specialPowerTimer <= 0.0f) {
+			specialPower = true;
+			specialPowerTimer = 10.0f;
+		} else {
+			specialPower = false;
+			specialPowerTimer -= Time.deltaTime;
 		}
 	}
 
@@ -49,5 +56,9 @@ public class BossOneStats : MonoBehaviour {
 
 	public void win() {
 		player.GetComponent<Animator> ().SetInteger ("state", 2);
+	}
+
+	public bool isSpecialReady() {
+		return this.specialPower;
 	}
 }

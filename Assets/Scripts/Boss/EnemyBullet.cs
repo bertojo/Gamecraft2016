@@ -10,9 +10,12 @@ public class EnemyBullet : MonoBehaviour {
 	public int damage = 1;
 	public bool isMarked = false;
 
+	private BossOneStats bos;
+
 	// Use this for initialization
 	void Start () {
 		rb2d = this.GetComponent<Rigidbody2D> ();
+		bos = GameObject.Find ("Boss 1").GetComponent<BossOneStats> ();
 	}
 	
 	// Update is called once per frame
@@ -25,13 +28,16 @@ public class EnemyBullet : MonoBehaviour {
 
 		despawnTimer -= Time.deltaTime;
 
-		if (Input.GetKey (KeyCode.R))
-			speed = -speed;
-		if (Input.GetKey (KeyCode.E)) {
-			if (this.transform.position.x < -4.8f)
-				direction = new Vector3 (1, 0);
-			else
-				direction = new Vector3 (-1, 0);
+		if (bos.isSpecialReady ()) {
+			int randNum = Random.Range (0, 10);
+			if (randNum <= 5)
+				speed = -speed;
+			else {
+				if (this.transform.position.x < -4.8f)
+					direction = new Vector3 (1, 0);
+				else
+					direction = new Vector3 (-1, 0);
+			}
 		}
 	}
 
